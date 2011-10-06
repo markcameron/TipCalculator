@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:background="@color/white" android:orientation="vertical">
+	<RelativeLayout android:layout_height="fill_parent"
+		android:id="@+id/relativeLayout1" android:layout_width="fill_parent"
+		android:layout_marginTop="15dp">
+		<EditText android:textColor="@color/white" android:id="@+id/EditTextTip"
+			android:textSize="@dimen/bill_amount_size" android:layout_marginTop="16dp"
+			android:cursorVisible="true" android:paddingTop="0px"
+			android:layout_below="@+id/editTextTotal" android:gravity="bottom|right"
+			android:selectAllOnFocus="true" android:layout_alignRight="@+id/seekBarTip"
+			android:layout_width="150dp" android:layout_height="50dp"
+			android:background="@color/edit_bkgd_blue" android:layout_alignLeft="@+id/editTextTotal"
+			android:clickable="false" android:bufferType="editable"
+			android:inputType="number" android:maxLength="3">
+			<requestFocus />
+		</EditText>
+		<SeekBar android:max="100" android:layout_alignParentLeft="true"
+			android:layout_marginTop="15dp" android:thumb="@drawable/seekbarthumb"
+			android:progressDrawable="@drawable/blueprogress"
+			android:layout_marginLeft="15dp" android:layout_below="@+id/EditTextTip"
+			android:progress="15" android:layout_marginRight="15dp"
+			android:layout_width="fill_parent" android:layout_height="wrap_content"
+			android:id="@+id/seekBarTip" android:paddingLeft="10dp"
+			android:paddingRight="10dp" />
+		<TextView android:layout_alignBottom="@+id/EditTextTip"
+			android:gravity="bottom|left" android:textColor="@color/black"
+			android:layout_alignRight="@+id/textView1" android:layout_width="76dp"
+			android:layout_height="33dp" android:textSize="@dimen/bill_text_size"
+			android:id="@+id/TextView01" android:text="@string/main_tip"
+			android:layout_alignLeft="@+id/seekBarTip" android:layout_alignTop="@+id/EditTextTip"
+			android:minWidth="250px" />
+		<TextView android:layout_alignBottom="@+id/editTextTotal"
+			android:gravity="bottom|left" android:textColor="@color/black"
+			android:layout_width="76dp" android:textSize="@dimen/bill_text_size"
+			android:layout_toLeftOf="@+id/editTextTotal" android:id="@+id/textView1"
+			android:text="@string/main_total" android:layout_alignLeft="@+id/seekBarTip"
+			android:minWidth="250px" android:layout_alignParentTop="true"
+			android:layout_height="27dp" />
+		<EditText android:textColor="@color/white" android:id="@+id/editTextTotal"
+			android:textSize="@dimen/bill_amount_size" android:cursorVisible="true"
+			android:paddingTop="0px" android:gravity="bottom|right"
+			android:selectAllOnFocus="true" android:layout_alignRight="@+id/seekBarTip"
+			android:text="@string/zero" android:layout_width="150dp"
+			android:layout_alignParentTop="true" android:background="@color/edit_bkgd_blue"
+			android:clickable="false" android:bufferType="editable"
+			android:inputType="numberDecimal" android:maxLength="7"
+			android:layout_height="50dp" />
+		<EditText android:textColor="@color/white" android:id="@+id/EditTextPeople"
+			android:textSize="@dimen/bill_amount_size" android:layout_marginTop="16dp"
+			android:cursorVisible="true" android:paddingTop="0px"
+			android:layout_below="@+id/seekBarTip" android:gravity="bottom|right"
+			android:selectAllOnFocus="true" android:layout_alignRight="@+id/seekBarTip"
+			android:layout_width="150dp" android:digits="1234567890."
+			android:background="@color/edit_bkgd_blue" android:clickable="false"
+			android:bufferType="editable" android:text="@string/one"
+			android:inputType="number" android:layout_height="50dp" />
+		<FrameLayout android:id="@+id/frameLayout1"
+			android:layout_width="wrap_content" android:layout_height="1dp"
+			android:layout_below="@+id/EditTextPeople" android:layout_alignLeft="@+id/seekBarTip"
+			android:layout_alignRight="@+id/EditTextPeople"
+			android:layout_marginTop="10dp" android:layout_marginBottom="10dp"
+			android:background="@color/grey" />
+
+		<TextView android:gravity="bottom|left" android:textColor="@color/black"
+			android:layout_width="76dp" android:layout_height="33dp"
+			android:textSize="@dimen/bill_text_size" android:id="@+id/TextView02"
+			android:minWidth="250px" android:layout_alignBottom="@+id/EditTextPeople"
+			android:layout_alignLeft="@+id/frameLayout1" android:layout_alignTop="@+id/EditTextPeople"
+			android:text="@string/main_persons" android:layout_alignRight="@+id/TextView01" />
+		<TextView android:gravity="bottom|left" android:textColor="@color/black"
+			android:layout_width="76dp" android:layout_height="33dp" android:id="@+id/TextView03"
+			android:minWidth="250px" android:layout_below="@+id/frameLayout1"
+			android:layout_alignLeft="@+id/frameLayout1" android:layout_toLeftOf="@+id/EditTextPeople"
+			android:textSize="@dimen/bill_text_size_result" android:text="@string/main_tip_result" />
+		<TextView android:textColor="@color/black"
+			android:layout_width="76dp" android:layout_height="33dp"
+			android:textSize="@dimen/bill_text_size_result" android:id="@+id/TextViewTipResult"
+			android:minWidth="250px" android:layout_alignBaseline="@+id/TextView03"
+			android:layout_alignBottom="@+id/TextView03"
+			android:layout_alignLeft="@+id/EditTextPeople"
+			android:layout_alignRight="@+id/frameLayout1" android:gravity="bottom|right" />
+		<TextView android:gravity="bottom|left" android:textColor="@color/black"
+			android:layout_width="76dp" android:layout_height="33dp"
+			android:textSize="@dimen/bill_text_size_result" android:id="@+id/TextView05"
+			android:minWidth="250px" android:layout_below="@+id/TextView03"
+			android:layout_alignLeft="@+id/TextView03" android:text="@string/main_per_person"
+			android:layout_alignRight="@+id/TextView03" />
+		<TextView android:textColor="@color/black"
+			android:layout_width="76dp" android:layout_height="33dp"
+			android:textSize="@dimen/bill_text_size_result" android:minWidth="250px"
+			android:layout_below="@+id/TextViewTipResult"
+			android:layout_alignLeft="@+id/TextViewTipResult"
+			android:layout_alignRight="@+id/TextViewTipResult" android:id="@+id/TextViewPerPersonResult"
+			android:gravity="bottom|right" />
+		<FrameLayout android:layout_height="1dp" android:id="@+id/FrameLayout01"
+			android:layout_below="@+id/TextViewPerPersonResult"
+			android:layout_width="fill_parent" android:layout_marginTop="10dp"
+			android:layout_alignLeft="@+id/TextView06" android:layout_alignRight="@+id/TextViewTotalWithTip"
+			android:layout_marginBottom="10dp" android:background="@color/grey" />
+		<TextView android:gravity="bottom|left" android:textColor="@color/black"
+			android:layout_width="76dp" android:layout_height="33dp"
+			android:textSize="@dimen/bill_text_size_result" android:id="@+id/TextView06"
+			android:text="@string/main_total_with_tip" android:minWidth="250px"
+			android:layout_toLeftOf="@+id/TextViewTotalWithTip"
+			android:layout_alignLeft="@+id/TextView05" android:layout_below="@+id/FrameLayout01" />
+		<TextView android:textColor="@color/black"
+			android:layout_width="76dp" android:layout_height="33dp"
+			android:textSize="@dimen/bill_text_size_result" android:id="@+id/TextViewTotalWithTip"
+			android:minWidth="250px" android:layout_alignBaseline="@+id/TextView06"
+			android:layout_alignBottom="@+id/TextView06"
+			android:layout_toRightOf="@+id/TextView05" android:layout_alignRight="@+id/TextViewPerPersonResult"
+			android:gravity="bottom|right" />
+		<TextView android:minWidth="250px" android:layout_height="33dp"
+			android:id="@+id/TextView07" android:textColor="@color/black"
+			android:gravity="bottom|left" android:textSize="@dimen/bill_text_size_result"
+			android:layout_width="76dp" android:layout_below="@+id/TextView06"
+			android:layout_alignLeft="@+id/TextView06" android:layout_alignRight="@+id/TextView06"
+			android:text="@string/main_total_with_tip_per_person" />
+		<TextView android:minWidth="250px" android:layout_height="33dp"
+			android:id="@+id/TextViewTotalWithTipPerPerson" android:textColor="@color/black"
+			android:gravity="bottom|right" android:textSize="@dimen/bill_text_size_result"
+			android:layout_width="76dp" android:layout_below="@+id/TextViewTotalWithTip"
+			android:layout_alignRight="@+id/TextViewTotalWithTip"
+			android:layout_alignLeft="@+id/TextViewTotalWithTip" />
+		<com.google.ads.AdView android:id="@+id/adView"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_alignParentBottom="true"
+						 android:layout_alignParentLeft="true" 
+                         ads:adUnitId="MY_AD_UNIT_ID"
+                         ads:adSize="BANNER"
+                         ads:loadAdOnCreate="true"/>
+			
+	</RelativeLayout>
+
+</LinearLayout>

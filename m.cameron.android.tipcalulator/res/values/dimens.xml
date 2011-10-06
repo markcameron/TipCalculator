@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<dimen name="bill_amount_size">17pt</dimen>
+<dimen name="bill_text_size">14pt</dimen>
+<dimen name="bill_text_size_result">10pt</dimen>
+</resources>

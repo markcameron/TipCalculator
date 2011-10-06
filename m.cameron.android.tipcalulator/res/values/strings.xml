@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, TipCalculatorActivity!</string>
+    <string name="app_name">Tip Calculator</string>
+    <string name="AppName">Tip Calculator</string>
+    <string name="main_total">Total:</string>
+    <string name="main_tip">Tip %:</string>
+    <string name="main_tip_result">Tip:</string>
+    <string name="zero">0.0</string>
+    <string name="one">1</string>
+    <string name="main_persons">Persons:</string>
+    <string name="main_per_person">Per person:</string>
+    <string name="main_total_with_tip">Bill Total:</string>
+    <string name="main_total_with_tip_per_person">Per Person:</string>
+</resources>
