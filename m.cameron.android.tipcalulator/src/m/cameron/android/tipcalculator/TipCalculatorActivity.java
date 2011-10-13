@@ -8,11 +8,16 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.NumberFormat;
+import java.util.Locale;
 
 public class TipCalculatorActivity extends Activity {
 	private EditText tipText, personText, totalText;
@@ -21,6 +26,8 @@ public class TipCalculatorActivity extends Activity {
 	
 	String prevValTotal, prevValTip, prevValPersons;
 	
+	private static final int EDIT_ID = Menu.FIRST+2;
+	
 	public static final String APP_PREFERENCES = "TipCalculatorPreferences";
 	public static final String PREF_TOTAL = "Total";
 	public static final String PREF_TIP = "Tip";
@@ -28,7 +35,7 @@ public class TipCalculatorActivity extends Activity {
 	NumberFormat currency = NumberFormat.getCurrencyInstance();
 	
 	SharedPreferences settings;
-	
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -162,6 +169,29 @@ public class TipCalculatorActivity extends Activity {
 	    // TODO Auto-generated method stub
 	    }
     };
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+	    menu.add(Menu.NONE, EDIT_ID, Menu.NONE, "Settings")
+	    		.setIcon(android.R.drawable.ic_menu_preferences)
+	    		.setAlphabeticShortcut('e');
+	    menu.add(Menu.NONE, EDIT_ID+1, Menu.NONE, "Exit")
+    			.setIcon(android.R.drawable.ic_menu_close_clear_cancel)
+    			.setAlphabeticShortcut('q');
+	    return(super.onCreateOptionsMenu(menu));
+    }
+    
+    public boolean onOptionsItemSelected(MenuItem item) {
+    	switch (item.getItemId()) {
+    	case EDIT_ID:
+    		startActivityForResult(new Intent(this, Preferences.class), 0);
+    		return true;
+    	case EDIT_ID+1:
+    		
+    		return true;
+    	}
+    	return false;
+	}
     
     private void calculateTip() {
     	saveSettings();
