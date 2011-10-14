@@ -17,6 +17,7 @@ import android.preference.PreferenceManager;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.NumberFormat;
+import java.util.HashMap;
 import java.util.Locale;
 
 
@@ -176,6 +177,7 @@ public class TipCalculatorActivity extends Activity {
     
     public void onResume(){
     	getPrefs();
+    	calculateTip();
     	super.onResume();
     }
     
@@ -196,7 +198,7 @@ public class TipCalculatorActivity extends Activity {
     		startActivityForResult(new Intent(this, Preferences.class), 0);
     		return true;
     	case EDIT_ID+1:
-    		
+    		finish();
     		return true;
     	}
     	return false;
@@ -208,12 +210,12 @@ public class TipCalculatorActivity extends Activity {
 
         ListPreference = prefs.getString("list", Locale.getDefault().toString());
         Locale[] availableLocales = Locale.getAvailableLocales();
+
         currency = NumberFormat.getCurrencyInstance(availableLocales[Integer.parseInt(ListPreference)]);
     }
     
-    private void calculateTip() {
+    public void calculateTip() {
     	saveSettings();
-    	
     	
     	final BigDecimal HUNDRED = new BigDecimal("100");
     	
