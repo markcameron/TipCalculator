@@ -19,12 +19,14 @@ import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+
 public class TipCalculatorActivity extends Activity {
 	private EditText tipText, personText, totalText;
 	private TextView tipResultTextView, tipResultPerPersonTextView, billTotalWithTipTextView, billTotalWithTipPerPersonTextView;
 	private SeekBar tipSeekBar;
 	
 	String prevValTotal, prevValTip, prevValPersons;
+	String ListPreference;
 	
 	private static final int EDIT_ID = Menu.FIRST+2;
 	
@@ -137,6 +139,8 @@ public class TipCalculatorActivity extends Activity {
 			}
 		});
         
+        getPrefs();
+        
         totalText.setText(prevValTotal);
         tipText.setText(prevValTip);
         personText.setText(prevValPersons);
@@ -170,6 +174,11 @@ public class TipCalculatorActivity extends Activity {
 	    }
     };
     
+    public void onResume(){
+    	getPrefs();
+    	super.onResume();
+    }
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 	    menu.add(Menu.NONE, EDIT_ID, Menu.NONE, "Settings")
@@ -193,8 +202,18 @@ public class TipCalculatorActivity extends Activity {
     	return false;
 	}
     
+    private void getPrefs() {
+        // Get the xml/preferences.xml preferences
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+
+        ListPreference = prefs.getString("list", Locale.getDefault().toString());
+        Locale[] availableLocales = Locale.getAvailableLocales();
+        currency = NumberFormat.getCurrencyInstance(availableLocales[Integer.parseInt(ListPreference)]);
+    }
+    
     private void calculateTip() {
     	saveSettings();
+    	
     	
     	final BigDecimal HUNDRED = new BigDecimal("100");
     	
