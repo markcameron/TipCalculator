@@ -6,9 +6,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -17,8 +19,9 @@ import android.widget.TextView;
 import m.cameron.android.tipcalculator.TipManager;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.text.NumberFormat;
+import java.text.ParsePosition;
+import java.util.HashMap;
 import java.util.Locale;
 
 /**
@@ -28,11 +31,13 @@ import java.util.Locale;
 public class TipCalculatorActivity extends Activity {
 	// Variables
 	private EditText tipText, personText, totalText;
-	private TextView tipResultTextView, tipResultPerPersonTextView, billTotalWithTipTextView, billTotalWithTipPerPersonTextView;
+	private TextView tipResultTextView, tipResultPerPersonTextView, 
+					 billTotalWithTipTextView, billTotalWithTipPerPersonTextView,
+					 labelTip, labelTotal, labelTipPerPerson, labelTotalPerPerson;
 	private SeekBar tipSeekBar;
 	
-	String prevValTotal, prevValTip, prevValPersons;
-	String ListPreference;
+	private String prevValTotal,  prevValTip, prevValPersons;
+	private String ListPreference;
 	
 	TipManager tipManager;
 	
@@ -67,6 +72,10 @@ public class TipCalculatorActivity extends Activity {
         tipResultPerPersonTextView = (TextView) findViewById(R.id.TextViewPerPersonResult);
         billTotalWithTipTextView = (TextView) findViewById(R.id.TextViewTotalWithTip);
         billTotalWithTipPerPersonTextView = (TextView) findViewById(R.id.TextViewTotalWithTipPerPerson);
+        labelTip = (TextView) findViewById(R.id.TextView03);
+        labelTotal = (TextView) findViewById(R.id.TextView06);
+        labelTipPerPerson = (TextView) findViewById(R.id.TextView05);
+        labelTotalPerPerson = (TextView) findViewById(R.id.TextView07);
         // SeekBars
         tipSeekBar = (SeekBar) findViewById(R.id.seekBarTip);
  
@@ -88,17 +97,29 @@ public class TipCalculatorActivity extends Activity {
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
+				String tipValue = tipText.getText().toString();
+				// Check for empty tip EditText.
+				if (tipValue.equals("")) {
+					zeroResults();
+					return;
+				} 
+				
 				// Don't allow tip percentage greater than a 100%
-				if (tipText.getText() != null && Integer.parseInt(tipText.getText().toString()) > 100) {
+				if (Integer.parseInt(tipValue) > 100) {
 					tipText.setText(Integer.toString(100));
 				}
 				
 				try {
-					tipSeekBar.setProgress(Integer.parseInt(tipText.getText().toString()));
-					tipManager.setTipPercent(tipText.getText().toString());
+					tipSeekBar.setProgress(Integer.parseInt(tipValue));
+					tipManager.setTipPercent(tipValue);
 					calculateTip();
 				}				
-				catch (Exception e) {
+				catch (NullPointerException e) {
+					
+				}
+				catch (NumberFormatException numberFormatException) {
+					// Only Zero results on numberFormatException, otherwise 
+					// we cannot load old state, since TipManager values get overwritten.
 					zeroResults();
 				}
 			}
@@ -122,7 +143,12 @@ public class TipCalculatorActivity extends Activity {
 					tipManager.setTotalBeforeTip(totalText.getText().toString());
 					calculateTip();
 				}				
-				catch (Exception e) {
+				catch (NullPointerException e) {
+					
+				}
+				catch (NumberFormatException numberFormatException) {
+					// Only Zero results on numberFormatException, otherwise 
+					// we cannot load old state, since TipManager values get overwritten.
 					zeroResults();
 				}
 			}
@@ -146,7 +172,12 @@ public class TipCalculatorActivity extends Activity {
 				try {
 					calculateTip();
 				}				
-				catch (Exception e) {
+				catch (NullPointerException e) {
+					
+				}
+				catch (NumberFormatException numberFormatException) {
+					// Only Zero results on numberFormatException, otherwise 
+					// we cannot load old state, since TipManager values get overwritten.
 					zeroResults();
 				}
 			}
@@ -211,6 +242,12 @@ public class TipCalculatorActivity extends Activity {
     	return false;
 	}
     
+	public static boolean isNumeric(String str) {
+		NumberFormat formatter = NumberFormat.getInstance();
+		ParsePosition pos = new ParsePosition(0);
+		formatter.parse(str, pos);
+		return str.length() == pos.getIndex();
+	}
     
     private void getPrefs() {
         // Get the xml/preferences.xml preferences
@@ -219,18 +256,31 @@ public class TipCalculatorActivity extends Activity {
         ListPreference = prefs.getString("list", Locale.getDefault().toString());
         Locale[] availableLocales = Locale.getAvailableLocales();
 
-        currency = NumberFormat.getCurrencyInstance(availableLocales[Integer.parseInt(ListPreference)]);
+        if (isNumeric(ListPreference)) {
+        	currency = NumberFormat.getCurrencyInstance(availableLocales[Integer.parseInt(ListPreference)]);
+		} else {
+			currency = NumberFormat.getCurrencyInstance(availableLocales[getCountryPositionInList(ListPreference, availableLocales)]);
+		}
+    }
+    
+    private int getCountryPositionInList(String needle, Locale[] availableLocales) {
+        // Create HashMap(K,V) of country codes and position.
+        HashMap<String, Integer> entriesMap = new HashMap<String, Integer>();
+        for (int i = 0; i < availableLocales.length; i++) {
+        	entriesMap.put(availableLocales[i].toString(), i);
+        }
+        
+        int temp = entriesMap.get(needle);
+        return temp;
     }
     
     /**
-     * Does the all the math to cacluate the amount of Tip, as well as all the respective
+     * Does the all the math to calculate the amount of Tip, as well as all the respective
      * calculations, such as tip per person, total per person, etc...
      */
     public void calculateTip() {
-    	// Save all the app values for next app start
+    	// Save all the App values for next App start
     	saveSettings();
-    	
-    	
     	
     	BigDecimal numberOfPersons = new BigDecimal(personText.getText().toString());
     	if (numberOfPersons.compareTo(BigDecimal.ZERO) <= 0) {
@@ -241,6 +291,22 @@ public class TipCalculatorActivity extends Activity {
     	
     	// Do the juicy calculations
     	tipManager.calculateTip();
+    	outputResults();
+    }
+    
+    private void outputResults() {
+    	if (tipManager.getNumberOfPeople().equals(BigDecimal.ONE)) {
+			setResultsForOnePerson();
+		} else {
+			setResultsForMultiplePeople();
+		}
+    }
+    
+    private void setResultsForMultiplePeople() {
+    	labelTip.setText(R.string.main_tip_result);
+    	labelTipPerPerson.setText(R.string.main_per_person);
+    	labelTotal.setText(R.string.main_total_with_tip);
+    	labelTotalPerPerson.setText(R.string.main_total_with_tip_per_person);
     	
     	tipResultTextView.setText(currency.format(tipManager.getTipAmount()));
     	tipResultPerPersonTextView.setText(currency.format(tipManager.getTipAmountPerPerson()));
@@ -248,14 +314,25 @@ public class TipCalculatorActivity extends Activity {
     	billTotalWithTipPerPersonTextView.setText(currency.format(tipManager.getTotalWithTipPerPerson()));
     }
     
+    private void setResultsForOnePerson() {
+    	labelTip.setText(R.string.main_tip_result);
+    	labelTipPerPerson.setText(R.string.main_total_with_tip);
+		labelTotal.setText("");
+		labelTotalPerPerson.setText("");
+    	
+    	tipResultTextView.setText(currency.format(tipManager.getTipAmount()));
+    	tipResultPerPersonTextView.setText(currency.format(tipManager.getTotalWithTip()));
+    	billTotalWithTipTextView.setText("");
+    	billTotalWithTipPerPersonTextView.setText("");
+    }
+    
     /**
      * Set all results to zero for data that doesn't compute
      */
     private void zeroResults() {
-    	tipResultTextView.setText(currency.format(0));
-    	tipResultPerPersonTextView.setText(currency.format(0));
-    	billTotalWithTipTextView.setText(currency.format(0));
-    	billTotalWithTipPerPersonTextView.setText(currency.format(0));
+    	//tipManager.setNumberOfPeople("1");
+    	tipManager.setTipPercent("0");
+    	tipManager.setTotalBeforeTip("0");
     }
     
     /**

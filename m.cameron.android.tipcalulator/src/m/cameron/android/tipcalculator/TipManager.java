@@ -35,10 +35,6 @@ public class TipManager {
 	public BigDecimal getTotalWithTipPerPerson() {
 		return totalWithTipPerPerson;
 	}
-	
-	private BigDecimal getTipDecimal() {
-		return tipDecimal;
-	}
 
 	private void setTipDecimal() {
 		final BigDecimal HUNDRED = new BigDecimal("100");
@@ -71,10 +67,26 @@ public class TipManager {
 		this.numberOfPeople = new BigDecimal(numberOfPeople);
 	}
 	
+	private boolean valuesIsNotNull() {
+		if (this.totalBeforeTip.equals(null)) {
+			return false;
+		}
+		if (this.tipPercent.equals(null)) {
+			return false;
+		}
+		if (this.numberOfPeople.equals(null)) {
+			return false;
+		}
+		
+		return true;
+	}
+	
 	public void calculateTip() {
-		tipAmount = totalBeforeTip.multiply(tipDecimal);
-    	tipAmountPerPerson = tipAmount.divide(numberOfPeople, 2, RoundingMode.HALF_UP);
-    	totalWithTip = tipAmount.add(totalBeforeTip);
-    	totalWithTipPerPerson = totalWithTip.divide(numberOfPeople, 2, RoundingMode.HALF_UP);
+		if (this.valuesIsNotNull()) {
+			tipAmount = totalBeforeTip.multiply(tipDecimal);
+	    	tipAmountPerPerson = tipAmount.divide(numberOfPeople, 2, RoundingMode.HALF_UP);
+	    	totalWithTip = tipAmount.add(totalBeforeTip);
+	    	totalWithTipPerPerson = totalWithTip.divide(numberOfPeople, 2, RoundingMode.HALF_UP);			
+		}
 	}
 }

@@ -21,10 +21,10 @@
 			android:layout_marginTop="15dp" android:thumb="@drawable/seekbarthumb"
 			android:progressDrawable="@drawable/blueprogress"
 			android:layout_marginLeft="15dp" android:layout_below="@+id/EditTextTip"
-			android:progress="15" android:layout_marginRight="15dp"
+			android:layout_marginRight="15dp"
 			android:layout_width="fill_parent" android:layout_height="wrap_content"
 			android:id="@+id/seekBarTip" android:paddingLeft="10dp"
-			android:paddingRight="10dp" />
+			android:paddingRight="10dp" android:progress="10"/>
 		<TextView android:layout_alignBottom="@+id/EditTextTip"
 			android:gravity="bottom|left" android:textColor="@color/black"
 			android:layout_alignRight="@+id/textView1" android:layout_width="76dp"
@@ -43,11 +43,11 @@
 			android:textSize="@dimen/bill_amount_size" android:cursorVisible="true"
 			android:paddingTop="0px" android:gravity="bottom|right"
 			android:selectAllOnFocus="true" android:layout_alignRight="@+id/seekBarTip"
-			android:text="@string/zero" android:layout_width="150dp"
+			android:layout_width="150dp"
 			android:layout_alignParentTop="true" android:background="@color/edit_bkgd_blue"
 			android:clickable="false" android:bufferType="editable"
 			android:inputType="numberDecimal" android:maxLength="7"
-			android:layout_height="50dp" />
+			android:layout_height="50dp" android:text="0"/>
 		<EditText android:textColor="@color/white" android:id="@+id/EditTextPeople"
 			android:textSize="@dimen/bill_amount_size" android:layout_marginTop="16dp"
 			android:cursorVisible="true" android:paddingTop="0px"

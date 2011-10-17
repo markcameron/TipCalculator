@@ -6,7 +6,7 @@
     <string name="main_total">Total:</string>
     <string name="main_tip">Tip %:</string>
     <string name="main_tip_result">Tip:</string>
-    <string name="zero">0.0</string>
+    <string name="zero">0</string>
     <string name="one">1</string>
     <string name="main_persons">Persons:</string>
     <string name="main_per_person">Per person:</string>
