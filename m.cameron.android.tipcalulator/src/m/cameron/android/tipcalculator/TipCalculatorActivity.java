@@ -57,7 +57,7 @@ public class TipCalculatorActivity extends Activity {
         setContentView(R.layout.main);
         
         tipManager = new TipManager();
-        // initialize and load settings (state of the app to return to)
+        // initialize and load settings (state of the App to return to)
         settings = getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE);
         loadSettings();
         
@@ -279,17 +279,20 @@ public class TipCalculatorActivity extends Activity {
     public void calculateTip() {
     	// Save all the App values for next App start
     	saveSettings();
+    	checkNumberOfPeople();
     	
+    	// Do the juicy calculations
+    	tipManager.calculateTip();
+    	outputResults();
+    }
+    
+    private void checkNumberOfPeople() {
     	BigDecimal numberOfPersons = new BigDecimal(personText.getText().toString());
     	if (numberOfPersons.compareTo(BigDecimal.ZERO) <= 0) {
     		tipManager.setNumberOfPeople(BigDecimal.ONE.toString());
 		} else {
     		tipManager.setNumberOfPeople(personText.getText().toString());
-    	}
-    	
-    	// Do the juicy calculations
-    	tipManager.calculateTip();
-    	outputResults();
+    	}    	
     }
     
     private void outputResults() {
@@ -328,13 +331,12 @@ public class TipCalculatorActivity extends Activity {
      * Set all results to zero for data that doesn't compute
      */
     private void zeroResults() {
-    	//tipManager.setNumberOfPeople("1");
     	tipManager.setTipPercent("0");
     	tipManager.setTotalBeforeTip("0");
     }
     
     /**
-     * Save the app state to sharedPreferences for next start
+     * Save the App state to sharedPreferences for next start
      */
     private void saveSettings() {
     	SharedPreferences.Editor prefEditor = settings.edit();
