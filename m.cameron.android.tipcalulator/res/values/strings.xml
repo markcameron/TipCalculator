@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hello">Hello World, TipCalculatorActivity!</string>
-    <string name="app_name">Tip Calculator</string>
+    <string name="app_name">Bill and Tip Splitter</string>
     <string name="AppName">Tip Calculator</string>
     <string name="main_total">Total:</string>
     <string name="main_tip">Tip %:</string>
