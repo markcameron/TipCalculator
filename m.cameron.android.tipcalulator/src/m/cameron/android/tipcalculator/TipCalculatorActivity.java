@@ -1,7 +1,7 @@
 package m.cameron.android.tipcalculator;
 
-import Tip.Calculator.R;
 
+import Tip.Calculator.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
