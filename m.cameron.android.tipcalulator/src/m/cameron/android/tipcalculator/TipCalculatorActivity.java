@@ -2,18 +2,27 @@ package m.cameron.android.tipcalculator;
 
 
 import Tip.Calculator.R;
-import android.app.Activity;
+import org.holoeverywhere.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+import org.holoeverywhere.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.EditText;
-import android.widget.SeekBar;
-import android.widget.TextView;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
+
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import org.holoeverywhere.widget.EditText;
+import org.holoeverywhere.widget.SeekBar;
+import org.holoeverywhere.widget.TextView;
+import org.holoeverywhere.widget.Button;
+
+import com.actionbarsherlock.view.MenuInflater;
+
 import m.cameron.android.tipcalculator.TipManager;
 
 import java.math.BigDecimal;
@@ -32,7 +41,8 @@ public class TipCalculatorActivity extends Activity {
 	private TextView tipResultTextView, tipResultPerPersonTextView, 
 					 billTotalWithTipTextView, billTotalWithTipPerPersonTextView,
 					 labelTip, labelTotal, labelTipPerPerson, labelTotalPerPerson;
-	private SeekBar tipSeekBar;
+	private SeekBar  tipSeekBar;
+	private Button   ButtonPeopleMinus, ButtonPeoplePlus;
 	
 	private String prevValTotal,  prevValTip, prevValPersons;
 	private String ListPreference;
@@ -48,13 +58,16 @@ public class TipCalculatorActivity extends Activity {
 	public static final String PREF_TOTAL = "Total";
 	public static final String PREF_TIP = "Tip";
 	public static final String PREF_PERSONS = "Persons";
+	private static final int BUTTON_SAVE = 1;
+	private static final int BUTTON_BILL_PHOTO = 2;
+	private static final int BUTTON_SETTINGS = 3;
 	NumberFormat currency = NumberFormat.getCurrencyInstance();
 	
 	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.main_holo);
         
         tipManager = new TipManager();
         // initialize and load settings (state of the App to return to)
@@ -64,7 +77,8 @@ public class TipCalculatorActivity extends Activity {
         // EditTexts
         totalText = (EditText) findViewById(R.id.editTextTotal);
         tipText = (EditText) findViewById(R.id.EditTextTip);
-        personText = (EditText) findViewById(R.id.EditTextPeople);  
+        personText = (EditText) findViewById(R.id.EditTextPeople);
+        Log.d("TAG", personText.getText().toString());
         // TextViews
         tipResultTextView = (TextView) findViewById(R.id.TextViewTipResult);
         tipResultPerPersonTextView = (TextView) findViewById(R.id.TextViewPerPersonResult);
@@ -76,7 +90,10 @@ public class TipCalculatorActivity extends Activity {
         labelTotalPerPerson = (TextView) findViewById(R.id.TextView07);
         // SeekBars
         tipSeekBar = (SeekBar) findViewById(R.id.seekBarTip);
- 
+        // Buttons
+        ButtonPeopleMinus = (Button) findViewById(R.id.ButtonPeopleMinus);
+        ButtonPeoplePlus = (Button) findViewById(R.id.ButtonPeoplePlus);
+         
         tipText.setText(String.valueOf(tipSeekBar.getProgress()));
         
         // Listeners
@@ -181,6 +198,50 @@ public class TipCalculatorActivity extends Activity {
 			}
 		});
         
+        ButtonPeopleMinus.setOnTouchListener(new OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				final int action = event.getAction();
+		    	switch (action & MotionEvent.ACTION_MASK) {
+			    	case MotionEvent.ACTION_UP: {
+						// TODO Auto-generated method stub
+						Integer persons = Integer.parseInt(personText.getText().toString());
+						if (persons <= 1) {
+							persons = 1;
+						}
+						else {
+							persons--;
+						}
+						personText.setText(persons.toString());
+						break;
+			    	}
+		    	}
+				
+				return false;
+			}
+		});
+        
+        ButtonPeoplePlus.setOnTouchListener(new OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				final int action = event.getAction();
+		    	switch (action & MotionEvent.ACTION_MASK) {
+			    	case MotionEvent.ACTION_UP: {
+						Integer persons = Integer.parseInt(personText.getText().toString());
+						if (persons == Integer.MAX_VALUE) {
+							persons = Integer.MAX_VALUE;
+						}
+						else {
+							persons++;
+						}
+						personText.setText(persons.toString());
+			    	}
+		    	}
+		    	
+				return false;
+			}
+		});
+        
         getPrefs();
         
         totalText.setText(prevValTotal);
@@ -216,25 +277,25 @@ public class TipCalculatorActivity extends Activity {
     	calculateTip();
     	super.onResume();
     }
-    
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-	    menu.add(Menu.NONE, EDIT_ID, Menu.NONE, "Settings")
-	    		.setIcon(android.R.drawable.ic_menu_preferences)
-	    		.setAlphabeticShortcut('e');
-	    menu.add(Menu.NONE, EDIT_ID+1, Menu.NONE, "Exit")
-    			.setIcon(android.R.drawable.ic_menu_close_clear_cancel)
-    			.setAlphabeticShortcut('q');
-	    return(super.onCreateOptionsMenu(menu));
-    }
-    
+   
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    menu.add(0, BUTTON_SAVE, 0, "Save")
+			.setIcon(R.drawable.ic_save_light)
+			.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		menu.add(0, BUTTON_BILL_PHOTO, 0, "Camera")
+			.setIcon(R.drawable.ic_camera_light)
+			.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+	    menu.add(0, BUTTON_SETTINGS, 0, "Settings")
+			.setIcon(R.drawable.ic_settings_light)
+			.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+	    return true;
+	}
+
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
-    	case EDIT_ID:
+    	case BUTTON_SETTINGS:
     		startActivityForResult(new Intent(this, Preferences.class), 0);
-    		return true;
-    	case EDIT_ID+1:
-    		finish();
     		return true;
     	}
     	return false;

@@ -1,10 +1,34 @@
 <PreferenceScreen
-xmlns:android="http://schemas.android.com/apk/res/android">
-<PreferenceCategory android:title="Localization">
-<ListPreference
-android:key="list"
-android:title="Choose Currency"
-android:summary="Choose the currency format ($,£,etc.)"
-android:dialogTitle="Choose Country" />
-</PreferenceCategory>
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:picker="http://schemas.android.com/apk/res/m.cameron.android.tipcalculator">
+	<PreferenceCategory android:title="Localization">
+	    
+		<ListPreference
+			android:key="list"
+			android:title="Choose Currency"
+			android:summary="Choose the currency format ($,£,etc.)"
+			android:dialogTitle="Choose Country" />
+	
+	</PreferenceCategory>
+	
+	<PreferenceCategory android:title="Tip range drag bar">
+	    
+	    <EditTextPreference
+	        android:key="pref_seekbar_min"
+	        android:title="Minimum"
+			android:summary="The minimum value for the seekbar"
+	        android:defaultValue="0"
+	        android:dialogMessage="diff"
+	        />
+	    
+   	   <EditTextPreference
+	        android:key="pref_seekbar_max"
+	        android:title="Maximum"
+			android:summary="The maximum value for the seekbar"
+	        android:defaultValue="0"
+	        android:dialogMessage="diff"
+	        />
+	    
+	</PreferenceCategory>
+	
 </PreferenceScreen>

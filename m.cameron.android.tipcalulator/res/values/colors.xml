@@ -4,4 +4,6 @@
 <color name="white">#ffffff</color>
 <color name="edit_bkgd_blue">#0099ff</color>
 <color name="grey">#AAAAAA</color>
+<color name="emphasis">#31b6e7</color>
+<color name="bg_gray">#cecbce</color>
 </resources>

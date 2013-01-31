@@ -8,6 +8,8 @@
     <string name="main_tip_result">Tip:</string>
     <string name="zero">0</string>
     <string name="one">1</string>
+    <string name="people_minus">-</string>
+    <string name="people_plus">+</string>
     <string name="main_persons">Persons:</string>
     <string name="main_per_person">Per person:</string>
     <string name="main_total_with_tip">Bill Total:</string>
