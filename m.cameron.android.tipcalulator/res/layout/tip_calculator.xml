@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:orientation="vertical" android:paddingLeft="16dp" android:paddingRight="16dp">
+
+ 	<TextView 
+		android:id="@+id/textView1"
+ 	    style="@style/sectionHeader"
+		android:layout_width="fill_parent" 
+ 	    android:layout_height="24dp" 
+		android:text="@string/main_total" />
+    
+	<EditText
+	    android:id="@+id/editTextTotal" 
+	    android:layout_width="fill_parent" 
+		android:layout_height="48dp"
+		android:cursorVisible="true"
+		android:selectAllOnFocus="true"
+		android:clickable="false"
+		android:bufferType="editable"
+		android:inputType="numberDecimal"
+		android:maxLength="7"
+		android:text="@string/zero"/>
+	
+	<TextView
+	    android:id="@+id/TextView01" 
+	    style="@style/sectionHeader"
+	    android:layout_width="fill_parent"
+	    android:layout_height="24dp" 
+		android:text="@string/main_tip"/>
+	
+	<EditText
+	    android:id="@+id/EditTextTip"
+	    android:layout_width="fill_parent" 
+		android:layout_height="48dp"
+		android:cursorVisible="true"
+		android:selectAllOnFocus="true"
+		android:clickable="false"
+		android:bufferType="editable"
+		android:inputType="number"
+		android:maxLength="3">
+		<requestFocus />
+	</EditText>
+	
+	<SeekBar
+	    android:id="@+id/seekBarTip" 
+	    android:max="100" 
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:progress="10"/>
+	
+	<TextView 
+	    style="@style/sectionHeader"
+	    android:layout_width="fill_parent"
+	    android:layout_height="24dp" 
+	    android:id="@+id/TextView02"
+		android:text="@string/main_persons" />
+	
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:id="@+id/LinearLayoutPeople" 
+	    android:layout_height="wrap_content" 
+	    android:layout_width="fill_parent">
+		
+	    <Button
+	        android:id="@+id/ButtonPeopleMinus"
+	        android:layout_width="48dp"
+	   		android:layout_height="48dp"
+	   		android:paddingTop="8dp"
+	   		android:paddingRight="8dp"
+	   		android:paddingBottom="8dp"
+	   		android:text="@string/people_minus"
+	   		android:layout_weight="1"
+	        />
+	    
+		<EditText 
+		    android:id="@+id/EditTextPeople"
+			android:layout_width="wrap_content"
+	   		android:layout_height="48dp"
+			android:cursorVisible="true"
+			android:selectAllOnFocus="true"
+			android:digits="1234567890."
+			android:clickable="false"
+			android:bufferType="editable"
+			android:text="@string/one"
+			android:inputType="number"
+	   		android:layout_weight="12"
+	   		android:gravity="right" />
+		    
+	    <Button
+	        android:id="@+id/ButtonPeoplePlus"
+	        android:layout_width="48dp"
+	   		android:layout_height="48dp"
+	   		android:paddingTop="8dp"
+	   		android:paddingBottom="8dp"
+	   		android:paddingLeft="8dp"
+	   		android:text="@string/people_plus"
+	   		android:layout_weight="1"
+	        />
+	    
+    </LinearLayout>
+    
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:id="@+id/LinearLayoutTotal" 
+	    android:layout_height="wrap_content" 
+	    android:layout_width="fill_parent"
+	    android:layout_marginTop="16dp">
+		
+   		<TextView
+   		    android:id="@+id/TextView03"
+   		    style="@style/sectionHeader"
+   		    android:layout_width="fill_parent"
+   		    android:layout_height="24dp"
+   		    android:layout_weight="1"
+			android:text="@string/main_tip_result" />
+		<TextView
+			android:id="@+id/TextViewTipResult"
+		    style="@style/textViewResult"
+			android:layout_width="fill_parent"
+			android:layout_height="24dp"
+			android:layout_weight="2"
+			android:gravity="right"/>
+	    
+    </LinearLayout>
+
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:id="@+id/LinearLayoutTotalPerPerson" 
+	    android:layout_height="wrap_content" 
+	    android:layout_width="fill_parent">
+		
+   		<TextView
+   		    style="@style/sectionHeader"
+			android:id="@+id/TextView05"
+			android:layout_width="fill_parent"
+			android:layout_height="24dp"
+			android:layout_weight="1"
+			android:text="@string/main_per_person"/>
+		<TextView
+			android:id="@+id/TextViewPerPersonResult"
+			style="@style/textViewResult"
+			android:layout_width="fill_parent"
+			android:layout_height="24dp"
+			android:layout_weight="2"
+			android:gravity="right"/>
+	    
+	</LinearLayout>
+	
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:id="@+id/LinearLayoutTotalWithTip" 
+	    android:layout_height="wrap_content" 
+	    android:layout_width="fill_parent">
+		
+   		<TextView
+			style="@style/sectionHeader"
+			android:id="@+id/TextView06"
+			android:layout_width="fill_parent"
+			android:layout_height="24dp"
+			android:text="@string/main_total_with_tip"
+			android:layout_weight="1"/>
+		<TextView
+		    android:id="@+id/TextViewTotalWithTip"
+		    style="@style/textViewResult"
+			android:layout_width="fill_parent"
+			android:layout_height="24dp"
+			android:layout_weight="2"
+			android:gravity="right"/>
+	    
+	</LinearLayout>	
+	
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:id="@+id/LinearLayoutTotalWithTipPerPerson" 
+	    android:layout_height="wrap_content" 
+	    android:layout_width="fill_parent">
+		
+   		<TextView
+   		    style="@style/sectionHeader"
+			android:id="@+id/TextView07"
+			android:layout_width="fill_parent"
+			android:layout_height="24dp"
+			android:text="@string/main_total_with_tip_per_person"
+			android:layout_weight="1"/>
+		<TextView
+			android:id="@+id/TextViewTotalWithTipPerPerson"
+			style="@style/textViewResult"
+			android:layout_width="fill_parent"
+		    android:layout_height="24dp"
+			android:layout_weight="2"
+			android:gravity="right"/>
+	    
+	</LinearLayout>	
+	
+	
+	
+	<RelativeLayout 
+	    android:layout_height="fill_parent"
+		android:id="@+id/relativeLayout1" 
+		android:layout_width="fill_parent"
+		android:layout_marginTop="15dp">
+
+		<com.google.ads.AdView 
+		    android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            ads:adUnitId="a14ea73ea89f6a7"
+            ads:adSize="BANNER"
+            ads:loadAdOnCreate="true" 
+            android:layout_alignParentBottom="true"
+            android:layout_above="@id/relativeLayout1"/>			
+	</RelativeLayout>
+
+</LinearLayout>

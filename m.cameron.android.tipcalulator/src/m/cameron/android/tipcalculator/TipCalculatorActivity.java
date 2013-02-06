@@ -1,12 +1,23 @@
 package m.cameron.android.tipcalculator;
 
 
-import Tip.Calculator.R;
+import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.text.ParsePosition;
+import java.util.HashMap;
+import java.util.Locale;
+
 import org.holoeverywhere.app.Activity;
+import org.holoeverywhere.preference.PreferenceManager;
+import org.holoeverywhere.widget.Button;
+import org.holoeverywhere.widget.EditText;
+import org.holoeverywhere.widget.SeekBar;
+import org.holoeverywhere.widget.TextView;
+
+import Tip.Calculator.R;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import org.holoeverywhere.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -16,20 +27,6 @@ import android.view.View.OnTouchListener;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import org.holoeverywhere.widget.EditText;
-import org.holoeverywhere.widget.SeekBar;
-import org.holoeverywhere.widget.TextView;
-import org.holoeverywhere.widget.Button;
-
-import com.actionbarsherlock.view.MenuInflater;
-
-import m.cameron.android.tipcalculator.TipManager;
-
-import java.math.BigDecimal;
-import java.text.NumberFormat;
-import java.text.ParsePosition;
-import java.util.HashMap;
-import java.util.Locale;
 
 /**
  * @author mark.cameron
